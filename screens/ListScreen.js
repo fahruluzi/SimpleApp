@@ -1,57 +1,35 @@
 import React from 'react';
-import { View, Text, FlatList, Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 
 const data = [
-  { id: '1', title: 'Makanan 1', description: 'Deskripsi Makanan 1', image: 'https://via.placeholder.com/100' },
-  { id: '2', title: 'Makanan 2', description: 'Deskripsi Makanan 2', image: 'https://via.placeholder.com/100' },
-  { id: '3', title: 'Makanan 3', description: 'Deskripsi Makanan 3', image: 'https://via.placeholder.com/100' },
+  { id: '1', title: 'Item 1', description: 'This is the detail of Item 1' },
+  { id: '2', title: 'Item 2', description: 'This is the detail of Item 2' },
+  { id: '3', title: 'Item 3', description: 'This is the detail of Item 3' },
 ];
 
 const ListScreen = ({ navigation }) => {
-  const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('Detail', { item })}>
-      <Image source={{ uri: item.image }} style={styles.image} />
-      <View style={styles.info}>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text>{item.description}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-
   return (
     <View style={styles.container}>
       <FlatList
         data={data}
-        renderItem={renderItem}
         keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity
+            style={styles.item}
+            onPress={() => navigation.navigate('Detail', { item })}
+          >
+            <Text style={styles.title}>{item.title}</Text>
+          </TouchableOpacity>
+        )}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  item: {
-    flexDirection: 'row',
-    padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ddd',
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 10,
-  },
-  info: {
-    flex: 1,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
+  container: { flex: 1, padding: 16 },
+  item: { padding: 16, borderBottomWidth: 1, borderBottomColor: '#ccc' },
+  title: { fontSize: 18 },
 });
 
 export default ListScreen;
